@@ -45,8 +45,20 @@ MODEL = "NNCF"
 INK, SUBC, FAINT = "#1A1A1A", "#5A6169", "#A8ADB4"
 GRIDC = "#E8EAEE"
 
+# Line/scatter palette. Hues are chosen for separability on screen AND for
+# separable LUMINANCE, so the series survive a greyscale print: the smallest
+# gap is 14 points on the 0-255 luminance scale (scripts/check_greyscale.py).
+# An earlier palette had Hall-Yarborough within 6 points of both NNCF and
+# AGA8-DETAIL, which collapsed three of the six lines into one grey.
 COLOR = {MODEL: "#0F62FE", "GERG-2008": "#6929C4", "AGA8-DETAIL": "#00877E",
-         "DAK": "#F1740A", "Hall–Yarborough": "#E8388A", "DPR": "#9A7B00"}
+         "DAK": "#F79E3C", "Hall–Yarborough": "#EE6BA5", "DPR": "#9A7B00"}
+
+# Marker shapes, for the one figure where six series share a single panel and
+# colour therefore carries the identification. Shape survives greyscale; the
+# dashed line styles tried earlier were rejected as visually noisy.
+MARKER = {MODEL: "circle", "AGA8-DETAIL": "square", "GERG-2008": "diamond",
+          "DAK": "triangle-up", "Hall–Yarborough": "triangle-down",
+          "DPR": "x"}
 
 # bar palette: saturated blue reserved for NNCF; reference EOS muted;
 # classical correlations in grays (hero-focus rule from design review)
@@ -288,10 +300,17 @@ def fig4_pressure_profile(D):
     for k in ALL6:
         ape = np.abs(preds[k][ng] - yn) / yn * 100
         cx, med = bin_median(ppr[ng], ape, edges)
-        # every series solid: dashing carried no information and read as noise
+        # Solid lines plus a distinct marker shape per series. This is the only
+        # figure in which six methods share one panel, so it is the only one
+        # where identification depends on the series style rather than on a
+        # panel title or a value label; the marker shape is what makes it
+        # readable in a greyscale print.
         fig.add_trace(go.Scatter(
-            x=cx, y=med, mode="lines", name=k,
-            line=dict(color=COLOR[k], width=4.5 if k == MODEL else 2.6)))
+            x=cx, y=med, mode="lines+markers", name=k,
+            line=dict(color=COLOR[k], width=4.2 if k == MODEL else 2.4),
+            marker=dict(symbol=MARKER[k], size=9 if k == MODEL else 7.5,
+                        color=COLOR[k],
+                        line=dict(width=0.8, color="white"))))
     fig.update_layout(
         title=title("Median error across the pressure range",
                     "log–log · natural-gas domain of Test Set B"),
