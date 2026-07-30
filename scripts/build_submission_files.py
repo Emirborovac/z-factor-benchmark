@@ -11,7 +11,7 @@ uploaded .tex.
 Writes:
   paper/abstract.txt        plain text, no markup
   paper/highlights.txt      five lines (also written by build_highlights.py)
-  paper/cover_letter.md     DRAFT for the author to review and edit
+  paper/cover_letter.txt    ready to upload
   paper/latex_sources.zip   refs.bib + all figure PDFs
 
 Run:  python -X utf8 scripts/build_submission_files.py
@@ -45,11 +45,7 @@ def detex_plain(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-COVER = """# Cover letter
-
-DRAFT - review, edit to your own voice, and delete this line before uploading.
-
-Dear Editor,
+COVER = """Dear Editor,
 
 I submit for your consideration the manuscript "A neural surrogate for the
 natural-gas compressibility factor: reference-equation accuracy from synthetic
@@ -145,7 +141,7 @@ def main() -> None:
                                           encoding="utf-8")
 
     # ---- cover letter -----------------------------------------------------
-    (PAPER / "cover_letter.md").write_text(COVER, encoding="utf-8")
+    (PAPER / "cover_letter.txt").write_text(COVER, encoding="utf-8")
 
     # ---- LaTeX source bundle ---------------------------------------------
     zp = PAPER / "latex_sources.zip"
@@ -157,7 +153,7 @@ def main() -> None:
     print(f"abstract.txt        {n_words} words")
     print(f"highlights.txt      {len(items)} lines, "
           f"max {max(len(i) for i in items)} chars (cap 85)")
-    print(f"cover_letter.md     {len(COVER.split())} words (DRAFT)")
+    print(f"cover_letter.txt    {len(COVER.split())} words")
     print(f"latex_sources.zip   refs.bib + {len(figs)} figure PDFs, "
           f"{zp.stat().st_size / 1024:.0f} kB")
     if n_words > 250:
