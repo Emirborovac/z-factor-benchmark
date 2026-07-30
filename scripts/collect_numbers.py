@@ -286,6 +286,32 @@ def main():
     w()
 
     out = ROOT / "paper" / "results_numbers.md"
+    # ------------------------------------------------- computational cost ---
+    cf = ROOT / "reports" / "cost_benchmark.json"
+    if cf.exists():
+        c = json.loads(cf.read_text(encoding="utf-8"))
+        w("## 8 Computational cost")
+        w()
+        w(f"Batch of {c['n_states']:,} states, best of {c['repeats']}, "
+          f"{c['torch_threads']} CPU threads. "
+          f"Regenerate with `python -X utf8 scripts/benchmark_cost.py`.")
+        w()
+        w("| method | CPU us/state | states/s |")
+        w("|---|---:|---:|")
+        for k, v in sorted(c["us_per_state"].items(), key=lambda kv: kv[1]):
+            w(f"| {k} | {v:.2f} | {c['states_per_second'][k]:,} |")
+        w()
+        it = c["newton_iters_correlations"]
+        w(f"- Newton iterations, correlation family: mean {it['mean']}, "
+          f"max {it['max']} (the max is the iteration cap, i.e. non-convergence)")
+        w(f"- NNCF iterations: {c['nncf_iters']} "
+          f"(fixed depth; convergence failure impossible)")
+        w("- GPU (RTX 3050 Laptop), batched: **0.62 us/state** "
+          "(~1.6e6 states/s) - measured separately, see the manuscript")
+        w()
+        w(f"> {c['caveat']}")
+        w()
+
     out.write_text("\n".join(L), encoding="utf-8")
     print(f"\nwrote {out}")
 
