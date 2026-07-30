@@ -1,0 +1,43 @@
+{
+  "title": "Z-factor benchmark: 6726 experimental natural-gas compressibility factors with absolute inputs, and the NNCF neural surrogate",
+  "upload_type": "dataset",
+  "description": "<p>An open benchmark for the natural-gas compressibility factor <em>z</em>, together with a neural surrogate trained without any laboratory measurement.</p><p><strong>The benchmark.</strong> 6726 experimental gas-phase measurements extracted from 40 published studies in the NIST ThermoML archive, each carrying absolute pressure, temperature and full molar composition, so that <em>z = pM/(&rho;RT)</em> follows exactly from the measured quantities. No chart, correlation or equation of state enters that identity. The natural-gas domain used for the primary comparison contains 2426 points from 10 independent laboratories. This is the first common test set of measured <em>z</em> with absolute inputs: almost all prior machine-learning work on this property is trained and tested on values digitised from the 1942 Standing-Katz chart, the same chart to which the classical correlations were fitted.</p><p><strong>The model.</strong> NNCF, a residual multilayer perceptron of 899,329 parameters distilled from AGA8-DETAIL over 21.7 million synthetic states. It attains an average absolute deviation of 0.789 % on the benchmark, statistically indistinguishable from AGA8-DETAIL (0.769 %) and ahead of GERG-2008 (0.917 %), and reduces the error of the Dranchuk-Abou-Kassem, Hall-Yarborough and Dranchuk-Purvis-Robinson correlations by 1.10-1.14 percentage points at every one of the ten laboratories. Because no laboratory measurement enters training, the benchmark is a genuine held-out test. It ships with an applicability-domain guard that falls back to DAK outside its declared window.</p><p><strong>Also included.</strong> Seven verified classical correlations; laboratory-clustered bootstrap significance testing; a controlled experiment showing that surrogate accuracy is governed by the reference equation used to generate its training labels; a 186-fit leave-one-laboratory-out search over 31 residual-correction families; and a measured computational-cost benchmark.</p><p><strong>Attribution.</strong> The measurements are the work of the 40 constituent studies, listed with DOIs in <code>data/processed/SOURCES.md</code>. Please cite them as well as this compilation.</p><p><strong>Licensing.</strong> The derived data tables are released under CC BY 4.0; the code and the trained model are released under the MIT licence, as stated in <code>LICENSE</code>.</p>",
+  "creators": [
+    {
+      "name": "Borovac, Emir",
+      "affiliation": "Independent Researcher"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "version": "1.0.0",
+  "language": "eng",
+  "keywords": [
+    "compressibility factor",
+    "z-factor",
+    "natural gas",
+    "AGA8-DETAIL",
+    "GERG-2008",
+    "equation of state",
+    "machine learning",
+    "knowledge distillation",
+    "benchmark dataset",
+    "thermophysical properties",
+    "reservoir engineering",
+    "underground gas storage"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.18434/mds2-2422",
+      "relation": "isDerivedFrom",
+      "resource_type": "dataset",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/Emirborovac/z-factor-benchmark",
+      "relation": "isSupplementTo",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ]
+}
