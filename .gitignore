@@ -31,11 +31,31 @@ models/v2/
 models/v3/
 models/v4/
 
-# --- Local build artefacts
-paper/_review.html
-paper/.manuscript.tex.bak
-paper/manuscript_review.pdf
+# --- Local build artefacts and intermediates.
+# --- NOTE: .gitignore does not support inline comments; a '#' on a pattern line
+# --- becomes part of the pattern and silently matches nothing.
 reports/functional_form_search_prev.csv
+# cached prediction arrays, regenerable
+reports/_*.npy
+# superseded draft artwork; publication figures come from scripts/make_figures.py
+reports/figures/
+# bibliography audit trail, not a result
+reports/ref_verification.json
+
+# --- Manuscript and paper-authoring machinery.
+# --- The paper is submitted to a journal, not published here. This repository
+# --- carries the benchmark, the model and the code that produces the results.
+# --- The figures remain reproducible from scripts/make_figures.py.
+paper/
+scripts/build_pdf.py
+scripts/build_refs.py
+scripts/build_bibliography.py
+scripts/check_manuscript.py
+scripts/check_captions.py
+scripts/check_figure_discussion.py
+scripts/check_balance.py
+scripts/check_review_pdf.py
+scripts/patch_*.py
 
 # --- Python
 __pycache__/

@@ -128,8 +128,15 @@ data/processed/
   master.parquet      unified table, all tiers
   DATASHEET.md        provenance, screening, known limitations
 models/nn/            trained checkpoints (GERG- and DETAIL-taught)
-paper/                manuscript, figures, bibliography
+reports/              every result table, the cost benchmark, the correction
+                      search, and results_numbers.md (the authoritative
+                      numbers, regenerated from the artefacts)
 ```
+
+The manuscript is not in this repository. It is under submission to a journal
+and will be linked here on publication. Everything needed to reproduce its
+results — including `scripts/make_figures.py`, which regenerates all twelve
+figures — is here.
 
 ### Reproducing
 
@@ -206,8 +213,9 @@ pre-declared exclusion.
 ## Citing
 
 If you use the benchmark or the model, please cite the paper (see
-`CITATION.cff`) and the 40 constituent experimental studies, which are listed
-with DOIs in `paper/refs_sources.bib`. The measurements are other people's work.
+`CITATION.cff`) and the 40 constituent experimental studies. Their DOIs, point counts and state
+ranges are listed in `data/processed/SOURCES.md`. The measurements are other people's
+work and citing the compilation is not a substitute for citing them.
 
 Primary data: NIST ThermoML archive, [doi:10.18434/mds2-2422](https://doi.org/10.18434/mds2-2422).
 

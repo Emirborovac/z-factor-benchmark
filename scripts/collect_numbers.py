@@ -2,7 +2,7 @@
 
 Recomputes the headline results directly from the saved artefacts so no value
 in the paper is transcribed from memory or from a stale report. Writes
-paper/results_numbers.md.
+reports/results_numbers.md.
 
 Run:  python -X utf8 scripts/collect_numbers.py
 """
@@ -285,7 +285,9 @@ def main():
     w("(tree values from reports/ during model selection; NNCF recomputed here)")
     w()
 
-    out = ROOT / "paper" / "results_numbers.md"
+    # reports/, not paper/: the published repository carries the model and
+    # the results, and the manuscript is submitted separately.
+    out = ROOT / "reports" / "results_numbers.md"
     # ------------------------------------------------- computational cost ---
     cf = ROOT / "reports" / "cost_benchmark.json"
     if cf.exists():
