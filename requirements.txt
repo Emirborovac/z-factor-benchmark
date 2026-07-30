@@ -1,0 +1,28 @@
+# Pinned to the versions this work was produced with (Python 3.11.4, Windows).
+# pyaga8 provides the AGA8-DETAIL and GERG-2008 reference implementations
+# (Equinor's Rust port); it is the source of every reference-equation number
+# reported here.
+
+numpy==2.4.4
+pandas==2.2.3
+pyarrow==20.0.0
+scipy==1.17.1
+scikit-learn==1.9.0
+
+# reference equations of state
+pyaga8==0.1.18
+
+# models
+torch==2.4.1            # +cu124 build used for training; CPU build is enough
+                        # for inference and for reproducing the figures
+lightgbm==4.7.0
+xgboost==3.2.0
+gplearn==0.4.3          # symbolic regression, correction-family search only
+
+# figures (kaleido exports true vector PDF at exact millimetre sizes)
+plotly==6.3.0
+kaleido==1.0.0
+pillow                  # used by scripts/check_figures.py for edge-ink QA
+
+# tests
+pytest

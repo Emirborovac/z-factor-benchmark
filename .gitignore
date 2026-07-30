@@ -1,0 +1,53 @@
+# What is deliberately NOT published, and why.
+#
+# The repository ships everything needed to reproduce the paper's results and to
+# use the model. It does not ship bulk inputs that are either (a) redistributions
+# of someone else's archive, or (b) regenerable from a script in this repo. Each
+# exclusion below names the script that recreates it.
+
+# --- Raw third-party archives (4.2 GB). Redistributing them would fork a
+# --- maintained dataset. Fetch with scripts/prepare_data.py, which downloads
+# --- the NIST ThermoML archive (doi:10.18434/mds2-2422) directly.
+data/raw/
+
+# --- Synthetic training pool (1.1 GB, 21.7M states). Fully regenerable and
+# --- seed-pinned: scripts/generate_synthetic.py then scripts/relabel_detail.py.
+# --- data/synthetic/MANIFEST.md IS tracked so the sampling rules are public.
+data/synthetic/*.parquet
+
+# --- Redundant CSV mirror of a tracked parquet (22 MB vs 2.4 MB, same data).
+data/processed/master.csv
+
+# --- Gradient-boosted model-selection artefacts (578 MB). These are the
+# --- NEGATIVE results of Section 4.4; their accuracy numbers are reported in
+# --- reports/ and the paper, and they are regenerable from
+# --- scripts/train_models_v2.py / train_v3.py / train_v4.py. The released
+# --- model, models/nn/, IS tracked.
+models/*.txt
+models/*.json
+models/*.joblib
+models/*.pt
+models/v2/
+models/v3/
+models/v4/
+
+# --- Local build artefacts
+paper/_review.html
+paper/.manuscript.tex.bak
+paper/manuscript_review.pdf
+reports/functional_form_search_prev.csv
+
+# --- Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# --- OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

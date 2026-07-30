@@ -1,0 +1,27 @@
+{
+ "n_states": 20000,
+ "repeats": 5,
+ "torch_threads": 6,
+ "us_per_state": {
+  "NNCF (this work)": 14.715,
+  "DAK": 3.274,
+  "Hall-Yarborough": 1.967,
+  "DPR": 2.499,
+  "AGA8-DETAIL": 5.485,
+  "GERG-2008": 4.797
+ },
+ "states_per_second": {
+  "NNCF (this work)": 67957,
+  "DAK": 305443,
+  "Hall-Yarborough": 508464,
+  "DPR": 400095,
+  "AGA8-DETAIL": 182299,
+  "GERG-2008": 208456
+ },
+ "newton_iters_correlations": {
+  "mean": 15.42,
+  "max": 100
+ },
+ "nncf_iters": 0,
+ "caveat": "pyaga8 is a Rust library driven from Python one state at a time, so the reference-EOS timings include per-call interpreter overhead and are an upper bound on their intrinsic cost. The correlations and the network are evaluated over whole arrays."
+}

@@ -1,0 +1,1 @@
+{"val_MAPE": 0.037566901301033795, "params": 899329, "features": "T,P,Ppr,Tpr,1/Tpr,logPpr,Ppr/Tpr,Ppr2/Tpr3,gamma,x1..x21", "residual_vs": "DAK"}

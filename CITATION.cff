@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, model or code, please cite the paper below, and cite the 40 constituent experimental studies listed in paper/refs_sources.bib."
+title: "NNCF: a neural surrogate for the natural-gas compressibility factor, with an open laboratory benchmark"
+abstract: >-
+  An open benchmark of 6726 experimental gas-phase compressibility factors from
+  40 published studies with absolute pressure, temperature and composition, and
+  a residual neural surrogate distilled from AGA8-DETAIL that attains
+  reference-equation accuracy on it at the cost of a single feed-forward
+  evaluation.
+type: software
+authors:
+  - family-names: Borovac
+    given-names: Emir
+    affiliation: "Independent Researcher"
+    email: emirborovac@rippleit-co.com
+    # AUTHOR: add `orcid: "https://orcid.org/0000-0000-0000-0000"` if listing one
+license: MIT
+keywords:
+  - compressibility factor
+  - natural gas
+  - equation of state
+  - machine learning
+  - benchmark
+  - AGA8
+  - GERG-2008
+# AUTHOR: fill in repository-code, url, version, date-released and the Zenodo
+# DOI once the repository is published, then update the Data availability
+# statement in paper/manuscript.tex to match.
+repository-code: "https://github.com/PENDING/z-factor-benchmark"
+references:
+  - type: data
+    title: "NIST ThermoML Archive"
+    authors:
+      - name: "National Institute of Standards and Technology"
+    doi: 10.18434/mds2-2422
+    notes: "Primary experimental data source for the benchmark."
