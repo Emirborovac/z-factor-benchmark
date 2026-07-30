@@ -26,7 +26,7 @@ keywords:
 # AUTHOR: fill in repository-code, url, version, date-released and the Zenodo
 # DOI once the repository is published, then update the Data availability
 # statement in paper/manuscript.tex to match.
-repository-code: "https://github.com/PENDING/z-factor-benchmark"
+repository-code: "https://github.com/Emirborovac/z-factor-benchmark"
 references:
   - type: data
     title: "NIST ThermoML Archive"
