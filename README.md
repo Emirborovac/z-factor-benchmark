@@ -1,7 +1,7 @@
 # NNCF — a neural surrogate for the natural-gas compressibility factor
 
-**Reference-equation accuracy at correlation cost, measured on 2426 independent
-laboratory measurements.**
+**Reference-equation accuracy from synthetic training data alone, measured on
+2426 independent laboratory measurements.**
 
 | Method | AAD vs experiment | within ±0.5 % | CPU µs/state | GPU µs/state |
 |---|---|---|---|---|
