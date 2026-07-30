@@ -3,17 +3,31 @@
 **Reference-equation accuracy at correlation cost, measured on 2426 independent
 laboratory measurements.**
 
-| Method | AAD vs experiment | within ±0.5 % | Cost |
-|---|---|---|---|
-| AGA8-DETAIL | **0.769 %** | 78.5 % | iterative density solve |
-| **NNCF (this work)** | **0.789 %** | 76.7 % | one feed-forward pass, ~14 µs |
-| GERG-2008 | 0.917 % | 67.7 % | iterative density solve |
-| DPR | 1.890 % | 20.6 % | Newton iteration |
-| DAK | 1.919 % | 22.1 % | Newton iteration |
-| Hall–Yarborough | 1.928 % | 18.0 % | Newton iteration |
+| Method | AAD vs experiment | within ±0.5 % | CPU µs/state | GPU µs/state |
+|---|---|---|---|---|
+| AGA8-DETAIL | **0.769 %** | 78.5 % | 5.5 | — |
+| **NNCF (this work)** | **0.789 %** | 76.7 % | 14.7 | **0.62** |
+| GERG-2008 | 0.917 % | 67.7 % | 4.8 | — |
+| DPR | 1.890 % | 20.6 % | 2.5 | — |
+| DAK | 1.919 % | 22.1 % | 3.3 | — |
+| Hall–Yarborough | 1.928 % | 18.0 % | 2.0 | — |
 
 *Natural-gas domain of Test Set B: 2426 measurements from 10 independent
-laboratories. Lower is better.*
+laboratories. Lower is better. Timings: batch of 20,000 states, best of 5,
+`scripts/benchmark_cost.py`; GPU is an RTX 3050 Laptop.*
+
+**Read the cost columns honestly.** On a CPU, NNCF is the *most* expensive of
+the six: 899,329 parameters is ~1.8 MFLOP per state, and because the network
+predicts a departure from DAK it evaluates DAK first, so it can never be cheaper
+than DAK. Batched on a GPU it is the cheapest, at 0.62 µs/state. The
+reference-EOS timings drive a Rust library from Python one state at a time, so
+they include interpreter overhead and are an upper bound.
+
+What NNCF buys you is therefore not raw speed on a laptop. It is
+reference-equation accuracy from a **single fixed-depth pass** — no density
+solve, no convergence tolerance, no possibility of convergence failure, fully
+differentiable, and batching to ~1.6M states/s on a GPU — obtained without any
+laboratory measurement entering training.
 
 NNCF is statistically indistinguishable from AGA8-DETAIL (−0.020 pp,
 95 % CI [−0.060, +0.002], clustered by laboratory) and reduces the error of the
@@ -84,8 +98,9 @@ is routed to DAK and flagged `"fallback"`. On 1374 real produced-gas
 compositions over 40 operating states, 99.1 % of evaluations fall inside the
 domain.
 
-The model is 899,329 parameters, 3.6 MB, and runs at ~14 µs per prediction on
-CPU in batch. It needs no iterative solve and no convergence tolerance.
+The model is 899,329 parameters and 3.6 MB. It needs no iterative solve and no
+convergence tolerance, so its cost is fixed and it cannot fail to converge — see
+the cost note above for measured timings.
 
 ---
 
